@@ -33,11 +33,17 @@ class Provider_Facebook extends Provider
 
 		$user = json_decode(file_get_contents($url));
 
+        // if user has no username, then use email.
+        if (isset($user->email))
+        {
+            $username_from_email = explode('@',$user->email)[0];
+        }
+        
 		// Create a response from the request
 		return array(
 			'uid' => $user->id,
-			'name' => $user->name,
-			'nickname' => isset($user->username) ? $user->username : null,
+			'full_name' => $user->name,
+			'username' => isset($user->username) ? $user->username : $username_from_email,
 			'email' => isset($user->email) ? $user->email : null,
 			'image' => 'https://graph.facebook.com/me/picture?type=normal&access_token='.$token->access_token,
 			'urls' => array(
