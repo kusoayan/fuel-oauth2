@@ -36,7 +36,8 @@ class Provider_Facebook extends Provider
         // if user has no username, then use email.
         if (isset($user->email))
         {
-            $username_from_email = explode('@',$user->email)[0];
+            $username_from_email = explode('@',$user->email);
+            $username_from_email = $username_from_email[0];
         }
         
 		// Create a response from the request
