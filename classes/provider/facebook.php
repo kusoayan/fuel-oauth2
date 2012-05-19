@@ -33,13 +33,6 @@ class Provider_Facebook extends Provider
 
 		$user = json_decode(file_get_contents($url));
 
-        // if user has no username, then use email.
-        if (isset($user->email))
-        {
-            $username_from_email = explode('@',$user->email);
-            $username_from_email = $username_from_email[0];
-        }
-        
 		// Create a response from the request
 		return array(
 			'uid' => $user->id,
